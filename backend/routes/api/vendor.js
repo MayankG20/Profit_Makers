@@ -38,7 +38,9 @@ router.post("/add", (req,res) => {
 					const newVendor = new Vendor({
 						name: req.body.name,
 						email: req.body.email,
-						password: req.body.password
+						password: req.body.password,
+						customers: 0,
+						rating: 0
 					});
 					console.log(newVendor);
 

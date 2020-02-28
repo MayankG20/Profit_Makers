@@ -44,7 +44,7 @@ class Register extends Component {
 			this.setState({
 				errors: errors
 			});
-			const newUser = {
+			var newUser = {
 				name: this.state.name,
 				email: this.state.email,
 				password: this.state.password,

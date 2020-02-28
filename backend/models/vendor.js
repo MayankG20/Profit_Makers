@@ -15,6 +15,14 @@ let Vendor = new mongoose.Schema({
     password:{
     	type: String,
     	required: true
+    },
+    customers:{
+        type: Number,
+        required: true
+    },
+    rating: {
+        type: Number,
+        required: true
     }
 });
 

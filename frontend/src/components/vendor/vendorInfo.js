@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route,Link, Redirect } from 'react-router-dom'
+import {BrowserRouter as Router } from 'react-router-dom'
 import Navbar from './vendornavbar.js';
 
 export default class Vendor extends Component {

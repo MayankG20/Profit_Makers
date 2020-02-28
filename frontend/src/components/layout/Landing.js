@@ -4,7 +4,7 @@ import  { Link } from "react-router-dom";
 class Landing extends Component {
 	render(){
 		return (
-			<div style ={{ height: "55vh" , width: "45vh" }} className="container valign-wrapper">
+			<div style ={{ height: "55vh" , width: "55%" }} className="container valign-wrapper">
 				<div className="row">
 					<div className="col s12 center-align">
 						<p className="flow-text grey-text text-darken-1">
