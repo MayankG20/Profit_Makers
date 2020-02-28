@@ -49,4 +49,5 @@ npm install -g nodemon(If this doesn't works than try same command with sudo in 
 ### Nodemon
 Tool that develop node.js based app by automatically restarting the node application when file changes in the directory are detected
 
-##Now going to create backend Server
+### api for rating(Beauty-stars)
+npm install --save beauty-stars
