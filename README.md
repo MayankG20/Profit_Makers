@@ -1,9 +1,9 @@
 ## Installing Mongodb:
-sudo apt-get install gnupg
-wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
-echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
-sudo apt-get update
-sudo apt-get install -y mongodb-org
+1) sudo apt-get install gnupg
+2) wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+3) echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+4) sudo apt-get update
+5) sudo apt-get install -y mongodb-org
 
 ## Starting Mongodb:
 sudo systemctl start mongod
@@ -34,19 +34,19 @@ quit()
 ## Command for installing some dependencies:
 npm install express cors mongoose dotenv
 
-# Express.js
+### Express.js
 Fast and lightweight web framework for Node.js
 
-# mongoose
+### mongoose
 Makes interacting with MongoDB through Node.js simpler
 
-# dotenv
+### dotenv
 It loads environment variables from a .env file into process.env
 
-## Global package install
+### Global package install
 npm install -g nodemon(If this doesn't works than try same command with sudo in beginning)
 
-# Nodemon
+### Nodemon
 Tool that develop node.js based app by automatically restarting the node application when file changes in the directory are detected
 
 ##Now going to create backend Server
