@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-// import { Link ,BrowserRouter as Router} from 'react-router-dom';
+import { Link ,BrowserRouter as Router} from 'react-router-dom';
 import axios from 'axios';
 import Vendor from './vendornavbar';
 
@@ -47,7 +47,7 @@ export default class ViewProducts extends Component {
 			value:id
 		};
 		console.log("mayank");
-		axios.post('http://localhost:4000/product/delete',node)
+		axios.post('http://localhost:4000/product/cancel/',node)
 			.then(res=>console.log(res.data));
 
 		this.setState({
@@ -64,7 +64,46 @@ export default class ViewProducts extends Component {
 	render(){
 		return (
 			<div>
-				<Vendor id={this.props.match.params.id}/>
+				<nav style={{ lineWidth:"1500px"}}>
+				<div style={{ display: "flex",flexDirection: "row",justifyContent: "space-between", alignItems: "center",flexWrap: "Wrap" }}>
+					<div className="nav-wrapper white" style={{ width: "25%"}}>
+						<Link
+							to={"/vendor/"+this.props.match.params.id+"/create"}
+							style={{fontFamily: "monospace",fontSize:"20px"}}
+							className="col s5 brand-logo center black-text"
+						>
+							Create
+						</Link>
+					</div>
+					<div className="nav-wrapper white" style={{ width: "25%"}}>
+						<Link
+							to={"/vendor/"+this.props.match.params.id+"/view"}
+							style={{fontFamily: "monospace",fontSize:"20px"}}
+							className="col s5 brand-logo center black-text"
+						>
+							View
+						</Link>
+					</div>
+					<div className="nav-wrapper white" style={{ width: "25%"}}>
+						<Link
+							to={"/vendor/"+this.props.match.params.id+"/ready"}
+							style={{fontFamily: "monospace",fontSize:"20px"}}
+							className="col s5 brand-logo center black-text"
+						>
+							Ready
+						</Link>
+					</div>
+					<div className="nav-wrapper white" style={{ width: "25%"}}>
+						<Link
+							to={"/vendor/"+this.props.match.params.id+"/dispatched"}
+							style={{fontFamily: "monospace",fontSize:"20px"}}
+							className="col s5 brand-logo center black-text"
+						>
+							Dispatched
+						</Link>
+					</div>
+				</div>
+			</nav>
 			  <h3 style={{ fontFamily: "Courier New", color:"skyblue"}}>List of all Products</h3>
 			  <table className="table">
 			    <thead className="thead-light">

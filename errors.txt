@@ -1,0 +1,2 @@
+error:  UnhandledPromiseRejectionWarning: 						MongooseServerSelectionError: connect 					ECONNREFUSED 127.0.0.1:27017
+Solution: This happened probably because the MongoDB service isn't started so do (sudo systemctl start mongod)

@@ -18,6 +18,15 @@ router.route('/').get((req,res) => {
 
 });
 
+router.route('/vdetails/').post((req,res) => {
+	console.log(req.body.name)
+	Vendor.findOne({name:req.body.name})
+		.then(vendors => {
+			return res.json(vendors)
+		})
+		.catch(err => res.status(400).json('Error: '+err));
+})
+
 router.post("/add", (req,res) => {
 
 	const { errors, isValid }=validateRegisterInput(req.body);
@@ -59,6 +68,20 @@ router.post("/add", (req,res) => {
 		}
 	});	
 });
+
+router.post("/rate/",(req,res) =>{
+
+	Vendor.findOne({name: req.body.name})
+		.then(vendor => {
+			vendor.rating+= Number(req.body.star);
+			vendor.customers+=1;
+
+			vendor.save()
+				.then(() => res.json('Vendor rated!'))
+				.catch(err => res.status(400).json('Error: '+err));
+		})
+		.catch(err=> res.status(400).json('Error: '+err));
+})
 
 
 router.post("/exist",(req,res) =>{

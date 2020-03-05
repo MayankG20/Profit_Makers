@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
 // import {Link} from 'react-router-dom';
 import Vendor from './vendornavbar.js';
@@ -17,9 +18,22 @@ export default class CreateProduct extends Component {
 			name: '',
 			price: '',
 			quantity: '',
-			vendorname: ""
+			vendorname: "",
+			vrating: 0,
+			vendors:[]
 		};
 		console.log(this.state);
+	}
+
+	componentDidMount(){
+		axios.get('http://localhost:4000/vendor/')
+			.then(res => {
+				this.setState({
+					vendors: res.data
+				})
+				// console.log(this.state.vendors);
+			})
+			.catch(err => console.log(err));
 	}
 
 	onChangeName(e){
@@ -43,6 +57,22 @@ export default class CreateProduct extends Component {
 	onSubmit(e){
 		e.preventDefault();
 
+		var i=0;
+		for(i=0;i<(this.state.vendors.length);i++){
+			const nm=this.state.vendors[i].name;
+			const nm1=this.props.match.params.id;
+			const vend = this.state.vendors[i];
+			// console.log(nm,nm1);
+			if(nm===nm1){
+				if(vend.customers>0){
+					this.setState({
+						vrating:(vend.rating/vend.customers)
+					})
+				}
+				// console.log(this.state.vrating);
+			}
+		}
+		// console.log(this.state.vrating);
 		// console.log(this.props.match.params.id);
 		const product = {
 			name: this.state.name,
@@ -50,28 +80,72 @@ export default class CreateProduct extends Component {
 			price: this.state.price,
 			order: "0",
 			status: "Not Dispatched",
+			vrating: this.state.vrating,
 			vendorname: this.props.match.params.id
 		};
+		// var vendors={}
+		// console.log(this.state.vendors);
 
 		console.log(product);
 		axios.post('http://localhost:4000/product/add',product)
 			.then(res => console.log(res.data))
+			.catch(err =>console.log(err));
 
 		this.setState({
 			name: "",
 			price: "",
 			quantity: "",
-			vendorname: ""
+			vendorname: "",
+			vrating:0
 		})
 
-		window.location = "/vendor/"+this.props.match.params.id
+		// window.location = "/vendor/"+this.props.match.params.id
 		
 	}
 
 	render(){
 		return (
 			<div>
-				<Vendor id={this.props.match.params.id}/>
+				<nav style={{ lineWidth:"1500px"}}>
+				<div style={{ display: "flex",flexDirection: "row",justifyContent: "space-between", alignItems: "center",flexWrap: "Wrap" }}>
+					<div className="nav-wrapper white" style={{ width: "25%"}}>
+						<Link
+							to={"/vendor/"+this.props.match.params.id+"/create"}
+							style={{fontFamily: "monospace",fontSize:"20px"}}
+							className="col s5 brand-logo center black-text"
+						>
+							Create
+						</Link>
+					</div>
+					<div className="nav-wrapper white" style={{ width: "25%"}}>
+						<Link
+							to={"/vendor/"+this.props.match.params.id+"/view"}
+							style={{fontFamily: "monospace",fontSize:"20px"}}
+							className="col s5 brand-logo center black-text"
+						>
+							View
+						</Link>
+					</div>
+					<div className="nav-wrapper white" style={{ width: "25%"}}>
+						<Link
+							to={"/vendor/"+this.props.match.params.id+"/ready"}
+							style={{fontFamily: "monospace",fontSize:"20px"}}
+							className="col s5 brand-logo center black-text"
+						>
+							Ready
+						</Link>
+					</div>
+					<div className="nav-wrapper white" style={{ width: "25%"}}>
+						<Link
+							to={"/vendor/"+this.props.match.params.id+"/dispatched"}
+							style={{fontFamily: "monospace",fontSize:"20px"}}
+							className="col s5 brand-logo center black-text"
+						>
+							Dispatched
+						</Link>
+					</div>
+				</div>
+			</nav>
 				<h3 style={{fontFamily:"Courier New",color: "green"}}>Create New Product</h3>
 					<form onSubmit={this.onSubmit}>
 						<div className="form-group">

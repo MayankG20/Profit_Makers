@@ -24,6 +24,16 @@ let Product = new mongoose.Schema({
 	status: {
 		type: String,
 		required: true
+	},
+	vrating: {
+		type: Number,
+		required: true
+	},
+	rating: {
+		type: Number,
+	},
+	review: {
+		type: String,
 	}
 })
 

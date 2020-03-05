@@ -38,7 +38,10 @@ router.route('/add').post((req,res) =>{
 		quantity: Number(req.body.quantity),
 		order: 0,
 		status:'Not Dispatched',
-		vendorname: req.body.vendorname
+		vendorname: req.body.vendorname,
+		vrating: req.body.vrating,
+		rating: 0,
+		review: ''
 	})
 
 	console.log(product);
@@ -49,11 +52,11 @@ router.route('/add').post((req,res) =>{
 
 router.route('/update/').post((req,res) =>{
 
-	Product.findById(req.body.doc_id)
+	Product.findById(req.body.value)
 	.then(product => {
-		product.order = Number(req.body.value);
+		product.order += Number(req.body.order);
 		if(product.order>=product.quantity)
-			product.status='Dispatched';
+			product.status='Ready';
 		else{
 			product.status='Not Dispatched';
 		}
@@ -65,10 +68,46 @@ router.route('/update/').post((req,res) =>{
 	.catch(err => res.status(400).json('Error: '+ err));
 })
 
+router.route('/updatevrating/').post((req,res) =>{
+	console.log(req.body);
+	Product.updateMany({vendorname:req.body.name},{ $set : {vrating: req.body.rating}},{upsert: true},
+		(err,doc) => {
+			if(err) console.log(err);
+			console.log(doc);
+		}
+	);
+})
+
+router.route('/cancel/').post((req,res) => {
+
+	console.log(req.body.value);
+
+	Product.findById(req.body.value)
+		.then(product => {
+			product.status='Cancelled';
+
+			product.save()
+				.then(() => res.json('Product Cancelled!'))
+				.catch(err => res.status(400).json('Error: '+err));
+		})
+		.catch(err => res.status(400).json('Error: '+ err));
+})
+
+router.route('/dispatch/').post((req,res) => {
+
+	Product.findById(req.body.value)
+		.then(product => {
+			product.status="Dispatched";
+
+			product.save()
+				.then(() => res.json('Product Dispatched!'))
+				.catch(err => res.status(400).json('Error: '+err));
+		})
+		.catch(err => res.status(400).json('Error: '+ err));
+})
+
 router.route('/delete').post((req,res) =>{
 
-	// console.log("mafjasd");
-	// console.log(req);
 	console.log(req.body.value);
 	Product.deleteOne({_id:req.body.value})
 		.then(() =>res.json('Product deleted.'))
