@@ -8,6 +8,8 @@ import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 import Vendor from './components/vendor/vendorInfo';
 import Order from './components/student/order';
+import Place from './components/student/place-order';
+import ViewOrder from './components/student/view-order';
 import Create from './components/vendor/create-product';
 import View from './components/vendor/view-product';
 import Ready from './components/vendor/rtodis-product';
@@ -24,6 +26,8 @@ function App() {
           <Route exact path="/login" component={Login} />
           <Route exact path="/vendor/:id" component={Vendor}/>
           <Route exact path="/student/:id" component={Order}/>
+          <Route exact path="/student/:id/place" component={Place}/>
+          <Route exact path="/student/:id/orders" component={ViewOrder}/>
           <Route exact path="/vendor/:id/create" component={Create}/>
           <Route exact path="/vendor/:id/view" component={View}/>
           <Route exact path="/vendor/:id/ready" component={Ready}/>

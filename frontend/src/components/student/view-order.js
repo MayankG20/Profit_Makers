@@ -1,22 +1,17 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router,Route,Link} from 'react-router-dom';
-import './search.css';
+import { Link ,BrowserRouter as Router,Route} from 'react-router-dom';
 import axios from 'axios';
-import BeautyStars from 'beauty-stars';
-import viewOrders from './view-order1';
+// import Vendor from './vendornavbar';
 import Place from './place-order1';
+import viewOrders from './view-order1';
 
-export default class order extends Component {
+export default class ViewOrders extends Component {
 	constructor(props){
 		super(props);
-		console.log(props);
-		this.state={
-			id:this.props.match.params.id
-		}
 	}
 
 	render(){
-		return(
+		return (
 			<Router>
 			<div style={{textAlign:"right",fontSize:"30px",fontFamily:"monospace",color:"blue"}}>Hello {this.props.match.params.id}</div>
 			<div>
@@ -46,6 +41,6 @@ export default class order extends Component {
 				<Route exact path="/student/:id/place" component={Place}/>
 				<Route exact path="/student/:id/orders" component={viewOrders}/>
 			</Router>
-		)
+		);
 	}
 }

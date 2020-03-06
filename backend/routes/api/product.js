@@ -13,7 +13,7 @@ router.route('/').get((req,res) => {
 
 });
 
-router.route('/user/:id').get((req,res) =>{
+router.route('/vendor/:id').get((req,res) =>{
 	
 	Product.find({vendorname:req.params.id})
 		.then(users => res.json(users))
@@ -62,7 +62,7 @@ router.route('/update/').post((req,res) =>{
 		}
 
 		product.save()
-			.then(() => res.json('Product updated!'))
+			.then(() => res.json(product.status))
 			.catch(err=> res.status(400).json('Error: '+err));
 	})
 	.catch(err => res.status(400).json('Error: '+ err));
