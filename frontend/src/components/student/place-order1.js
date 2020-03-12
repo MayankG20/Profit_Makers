@@ -158,6 +158,7 @@ export default class order extends Component {
 		})
 		// console.log(e);
 		console.log(this.state.pid,this.state.value);
+
 		const node={
 			value:this.state.pid,
 			order:this.state.value
@@ -168,11 +169,32 @@ export default class order extends Component {
 				this.setState({
 					status: res.data 
 				})
+				const order = {
+					pid: this.state.pid,
+					pname: this.state.pname,
+					vname: this.state.pvname,
+					sname: this.state.id,
+					order: this.state.value,
+					status: this.state.status
+				}
+				console.log(order);
+				axios.post('http://localhost:4000/order/add',order)
+					.then(res => console.log(res.data));
+
+				const node2 = {
+					pid: this.state.pid,
+					sname: this.state.id,
+					status: this.state.status
+				}
+				console.log(node2);
+				axios.post('http://localhost:4000/order/update/status',node2)
+					.then(res => console.log(res.data));
 			});
 
 		const node1 ={
 			name:this.state.pvname
 		}
+		console.log(node1);
 		axios.post('http://localhost:4000/vendor/vdetails/',node1)
 			.then(res => {
 				console.log(res.data);
@@ -183,24 +205,7 @@ export default class order extends Component {
 				console.log(this.state.avg);
 			})
 
-		const order = {
-			pid: this.state.pid,
-			pname: this.state.pname,
-			vname: this.state.pvname,
-			sname: this.state.id,
-			order: this.state.value,
-			status: this.state.status
-		}
-		axios.post('http://localhost:4000/order/add',order)
-			.then(res => console.log(res.data));
 
-		const node2 = {
-			pid: this.state.pid,
-			sname: this.state.sname,
-			status: this.state.status
-		}
-		axios.post('http://localhost:4000/order/update/status',node2)
-			.then(res => console.log(res.data));
 
 	}
 
@@ -301,13 +306,13 @@ export default class order extends Component {
 		return(
 			<Router>
 				<div className="input-field col s12" style={{float:"left"}}>
-					<label style={{marginTop:"-4rem"}}>Sort By: </label>
+					<label style={{marginTop:"-1rem"}}><b>Sort By: </b></label>
 					<select
 						value={this.state.sort}
 						onChange={this.onChange}
 						id="sort"
 						default="added date"
-						style={{width:"25%",marginTop:"-1.5rem"}}
+						style={{width:"25%",marginTop:"1.5rem"}}
 						className="form-control">
 						<option value="price">Price</option>
 						<option value="qleft">Quantity left</option>

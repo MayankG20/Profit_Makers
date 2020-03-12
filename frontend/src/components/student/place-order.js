@@ -326,7 +326,7 @@ export default class order extends Component {
 				</nav>
 	    	  </div>
 				
-								<Route exact path="/student/:id/place" component={Place}/>
+				<Route exact path="/student/:id/place" component={Place}/>
 				<Route exact path="/student/:id/orders" component={viewOrders}/>
 			</Router>
 		)
