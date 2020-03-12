@@ -146,7 +146,9 @@ export default class CreateProduct extends Component {
 					</div>
 				</div>
 			</nav>
-				<h3 style={{fontFamily:"Courier New",color: "green"}}>Create New Product</h3>
+				<div style={{width:"100%",height:"2vh"}}></div>
+				<h3 style={{fontFamily:"monospace",color: "green"}}>Create New Product</h3>
+				<div style={{width:"100%",height:"3vh"}}></div>
 					<form onSubmit={this.onSubmit}>
 						<div className="form-group">
 							<label>Name: </label>

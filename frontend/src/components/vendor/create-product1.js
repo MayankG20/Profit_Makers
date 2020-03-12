@@ -106,7 +106,9 @@ export default class CreateProduct extends Component {
 	render(){
 		return (
 			<div>
+				<div style={{width:"100%",height:"2vh"}}></div>
 				<h3 style={{fontFamily:"monospace",color: "green"}}><b>Create New Product</b></h3>
+				<div style={{width:"100%",height:"3vh"}}></div>
 					<form onSubmit={this.onSubmit}>
 						<div className="form-group">
 							<label>Name: </label>

@@ -3,8 +3,8 @@ import {BrowserRouter as Router,Route,Link} from 'react-router-dom';
 import './search.css';
 import axios from 'axios';
 import BeautyStars from 'beauty-stars';
-import viewOrders from './view-order';
-import Place from './place-order';
+import viewOrders from './view-order1';
+import Place from './place-order1';
 
 export default class order extends Component {
 	constructor(props){
@@ -325,85 +325,9 @@ export default class order extends Component {
 					</div>
 				</nav>
 	    	  </div>
-				<Route exact path="/student/:id/place" component={Place}/>
+				
+								<Route exact path="/student/:id/place" component={Place}/>
 				<Route exact path="/student/:id/orders" component={viewOrders}/>
-				<div className="input-field col s12" style={{float:"left"}}>
-					<label style={{marginTop:"-4rem"}}>Sort By: </label>
-					<select
-						value={this.state.sort}
-						onChange={this.onChange}
-						id="sort"
-						default="added date"
-						style={{width:"25%",marginTop:"-1.5rem"}}
-						className="form-control">
-						<option value="price">Price</option>
-						<option value="qleft">Quantity left</option>
-						<option value="rating">Rating</option>
-					</select>
-				</div>
-				<div className="searchp" style={{float:this.state.alignment}}>
-				<form className="search-form" style={{maxWidth: "400px",margin:"5% auto"}}>
-					<input 
-						type="text"  
-						id="name"
-						value= {this.state.name}
-						onChange= {this.onChange}
-						placeholder ="Product Name"
-						style={{
-							margin: "0px",
-							textAlign: "center",
-							outline: "0px",
-							border: "10px solid #F7F7F7",
-							width: "120%",
-							left: "0%",
-							position: "relative",
-							top: "10px",
-							zIndex: "2",
-							borderRadius: "5px",
-							fontSize: "30px",
-							boxShadow: "0 0 5px rgba(0, 0, 0, 0.12), inset 0 0 2px rgba(0, 0, 0, 0.19)",
-						}}
-					/>
-					<ul className="suggestions" style={{width:"150%",left:"-10%"}}>
-						<li>
-							<span style={{ fontSize: "19px",width:"30%"}}><b>Product  Name  </b></span>
-							<span style={{ fontSize: "19px",width:"20%"}}><b>Vendor</b></span>
-							<span style={{ fontSize: "19px",width:"15%"}}><b>Price</b></span>
-							<span style={{ fontSize: "19px",width:"20%"}}><b>Quantity Left</b></span>
-							<span style={{ fontSize: "19px",width:"15%"}}><b>Avg-rating</b></span>
-						</li>
-							{this.productsList()}
-					</ul>
-				</form>
-				</div>
-				<div style={{display:this.state.display,marginTop:"-11rem",marginLeft:"5rem"}} className="input-field col s12">
-					<form style={{float:"right",width:"20%",marginLeft:"5rem",marginTop:"5rem"}}>
-						<label style={{fontSize:"20px",fontFamily:"Courier New",color:"blue"}}>
-							<b>{this.state.pname} required: </b>
-							<input type="text" value={this.state.value}
-								id="value"
-								onChange={this.handleChange} />
-						</label>
-							<input type="submit" value="Submit" className="btn btn-primary" onClick={this.calcprice} />
-					</form>
-				</div>
-				<div style={{display:this.state.display1,float:"right",marginTop:"20rem",marginRight:"-20rem",fontSize:"30px",fontFamily:"Courier New",color:"green",width:"20%"}}>
-						<b>It will cost you: {this.state.cost}</b>
-						<input type="submit" value="Place Order" className="btn btn-success" onClick={this.placeOrder}/>
-				</div>
-				<div style={{display:this.state.display2,float:"right",marginTop:"-7rem",marginLeft:"58rem",fontSize:"30px",fontFamily:"Courier New",color:"red"}}>
-					<b>{this.state.cost}</b>
-				</div>
-				<div style={{display:this.state.display3,float:"right",marginTop:"-20rem",marginLeft:"38rem",width:"18%",fontSize:"20px",fontFamily:"Courier New",color:"orange"}}>
-					Rate the Vendor ({this.state.pvname}):
-						<BeautyStars
-							value={this.state.stars}
-							onChange={this.giverating}
-						/>
-						<br />
-						<br />
-						<input type="submit" value="Submit" className="btn btn-primary" onClick={this.submitrating}/>
-				</div>
 			</Router>
 		)
 	}

@@ -29,7 +29,7 @@ export default class ViewProducts extends Component {
 		};
 	}
 	componentDidMount(){
-		axios.get('http://localhost:4000/product/user/'+this.props.match.params.id)
+		axios.get('http://localhost:4000/product/vendor/'+this.props.match.params.id)
 			.then(res => {
 				console.log(res.data);
 				this.setState({
@@ -64,7 +64,9 @@ export default class ViewProducts extends Component {
 	render(){
 		return (
 			<div>
+				<div style={{width:"100%",height:"2vh"}}></div>
 			  <h3 style={{ fontFamily: "monospace", color:"skyblue"}}>List of all Products</h3>
+				<div style={{width:"100%",height:"3vh"}}></div>
 			  <table className="table">
 			    <thead className="thead-light">
 			      <tr>
