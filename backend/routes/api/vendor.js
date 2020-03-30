@@ -70,7 +70,7 @@ router.post("/add", (req,res) => {
 });
 
 router.post("/rate/",(req,res) =>{
-
+	console.log(req.body);
 	Vendor.findOne({name: req.body.name})
 		.then(vendor => {
 			vendor.rating+= Number(req.body.star);

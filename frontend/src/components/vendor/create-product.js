@@ -58,13 +58,17 @@ export default class CreateProduct extends Component {
 		e.preventDefault();
 
 		var i=0;
+		var x=0;
+		var y=0;
 		for(i=0;i<(this.state.vendors.length);i++){
 			const nm=this.state.vendors[i].name;
 			const nm1=this.props.match.params.id;
 			const vend = this.state.vendors[i];
-			// console.log(nm,nm1);
+			console.log(nm,nm1);
 			if(nm===nm1){
-				if(vend.customers>0){
+				if(Number(vend.customers)>0){
+					x=vend.customers/vend.rating;
+					y=Math.round(x*10)/10
 					this.setState({
 						vrating:(vend.rating/vend.customers)
 					})
@@ -72,7 +76,7 @@ export default class CreateProduct extends Component {
 				// console.log(this.state.vrating);
 			}
 		}
-		// console.log(this.state.vrating);
+		console.log(this.state.vrating);
 		// console.log(this.props.match.params.id);
 		const product = {
 			name: this.state.name,
@@ -80,7 +84,7 @@ export default class CreateProduct extends Component {
 			price: this.state.price,
 			order: "0",
 			status: "Not Dispatched",
-			vrating: this.state.vrating,
+			vrating: y,
 			vendorname: this.props.match.params.id
 		};
 		// var vendors={}

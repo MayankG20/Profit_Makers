@@ -51,8 +51,8 @@ router.route('/update/quantity').post((req,res) => {
 })
 
 router.route('/update/status').post((req,res) => {
-
-	Order.updateMany({pid:req.body.pid,sname:req.body.sname},{ $set: {status: req.body.status }},{upsert: true},
+	console.log(req.body);
+	Order.updateMany({pid:req.body.pid},{ $set: {status: req.body.status }},{upsert: true},
 		(err,doc) => {
 			if(err) console.log(err);
 			console.log(doc);

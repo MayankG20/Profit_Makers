@@ -51,7 +51,7 @@ router.route('/add').post((req,res) =>{
 });
 
 router.route('/update/').post((req,res) =>{
-
+	console.log(req.body);
 	Product.findById(req.body.value)
 	.then(product => {
 		product.order += Number(req.body.order);
@@ -60,7 +60,7 @@ router.route('/update/').post((req,res) =>{
 		else{
 			product.status='Not Dispatched';
 		}
-
+		console.log(product);
 		product.save()
 			.then(() => res.json(product.status))
 			.catch(err=> res.status(400).json('Error: '+err));

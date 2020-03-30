@@ -60,6 +60,16 @@ export default class order extends Component {
 			.catch(err => {
 				console.log(err);
 			})
+		axios.get('http://localhost:4000/vendor/')
+			.then(res => {
+				console.log(res.data);
+				this.setState({
+					vendors:res.data
+				});
+			})
+			.catch(err => {
+				console.log(err);
+			})
 		// console.log(this.state.products,this.state.vendors);
 	}
 
@@ -158,6 +168,7 @@ export default class order extends Component {
 		})
 		// console.log(e);
 		console.log(this.state.pid,this.state.value);
+
 		const node={
 			value:this.state.pid,
 			order:this.state.value
@@ -168,39 +179,44 @@ export default class order extends Component {
 				this.setState({
 					status: res.data 
 				})
-			});
-
-		const node1 ={
-			name:this.state.pvname
-		}
-		axios.post('http://localhost:4000/vendor/vdetails/',node1)
-			.then(res => {
-				console.log(res.data);
-				console.log(res.data.rating,res.data.customers,(res.data.rating)/(res.data.customers));
-				this.setState({
-					avg:(res.data.rating)/(res.data.customers)
+				const order = {
+					pid: this.state.pid,
+					pname: this.state.pname,
+					vname: this.state.pvname,
+					sname: this.state.id,
+					order: this.state.value,
+					status: this.state.status
+				}
+				console.log(order);
+				axios.post('http://localhost:4000/order/add',order)
+					.then(res => { 
+						console.log(res.data);
+						const node2 = {
+							pid: this.state.pid,
+							sname: this.state.id,
+							status: this.state.status
+						}
+						console.log(node2);
+						axios.post('http://localhost:4000/order/update/status',node2)
+							.then(res => {
+								console.log(res.data);
+								const node1 ={
+									name:this.state.pvname
+								}
+								console.log(node1);
+								axios.post('http://localhost:4000/vendor/vdetails/',node1)
+									.then(res => {
+										console.log(res.data);
+										console.log(res.data.rating,res.data.customers,(res.data.rating)/(res.data.customers));
+										this.setState({
+											avg:(res.data.rating)/(res.data.customers)
+										})
+										console.log(this.state.avg);
+									})
+								})
+						})
 				})
-				console.log(this.state.avg);
-			})
 
-		const order = {
-			pid: this.state.pid,
-			pname: this.state.pname,
-			vname: this.state.pvname,
-			sname: this.state.id,
-			order: this.state.value,
-			status: this.state.status
-		}
-		axios.post('http://localhost:4000/order/add',order)
-			.then(res => console.log(res.data));
-
-		const node2 = {
-			pid: this.state.pid,
-			sname: this.state.sname,
-			status: this.state.status
-		}
-		axios.post('http://localhost:4000/order/update/status',node2)
-			.then(res => console.log(res.data));
 
 	}
 
@@ -250,7 +266,7 @@ export default class order extends Component {
 		else if(this.state.sort==="qleft"){
 			const x1=Number(a.quantity)-Number(a.order);
 			const x2=Number(b.quantity)-Number(b.order);
-			return x2-x1;
+			return x1-x2;
 		}
 		else{
 			return b.vrating-a.vrating;
@@ -283,7 +299,18 @@ export default class order extends Component {
 			currentitem.vname=prod.vendorname;
 			currentitem.price=prod.price;
 			currentitem.qleft = qleft;
-			currentitem.vrating = prod.vrating;
+			var i;
+			currentitem.vrating=0;
+			for(i=0;i<(this.state.vendors.length);i++){
+				const vend=this.state.vendors[i];
+				if(vend.name===prod.vendorname){
+					if(vend.customers>0){
+						var x=(vend.rating)/(vend.customers);
+						currentitem.vrating=Math.round(x*10)/10;
+						break;
+					}
+				}
+			}
 			search.push(<li key={prod._id} onClick={this.ordernow.bind(this)} data-id={prod._id} data-name={currentitem.name} data-price={currentitem.price} data-vname={currentitem.vname} data-qleft={currentitem.qleft}>
 						{name1}
 						<span style={{ fontSize: "19px",width:"20%"}}>{currentitem.vname}</span>
