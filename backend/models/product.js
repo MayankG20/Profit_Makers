@@ -32,8 +32,11 @@ let Product = new mongoose.Schema({
 	rating: {
 		type: Number,
 	},
+	customers: {
+		type: Number,
+	},
 	review: {
-		type: String,
+		type: Array,
 	}
 })
 

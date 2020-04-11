@@ -3,6 +3,7 @@ import { Link ,BrowserRouter as Router,Route} from 'react-router-dom';
 import axios from 'axios';
 // import Vendor from './vendornavbar';
 import Place from './place-order1';
+import BeautyStars from 'beauty-stars';
 import viewOrders from './view-order1';
 
 const Orders = props => (
@@ -159,6 +160,76 @@ class Overlay extends Component{
 			</div>
 		);
 	}
+}
+
+class Rr extends Component {
+	constructor(props){
+		super(props);
+		this.giverating = this.giverating.bind(this);
+		this.handleChange = this.handleChange.bind(this);
+		this.productRr = this.productRr.bind(this);
+		this.state = {
+			rev:"",
+			rat:0,
+			display: true,
+			display1: false
+		}
+		console.log(this.state);
+	}
+
+	giverating = e => {
+		this.setState({
+			rat: e
+		})
+	}
+
+	handleChange = e => {
+		console.log(e);
+		this.setState({
+			rev: e.target.value
+		})
+	}
+
+	productRr = e => {
+		const node = {
+			value: this.props.pid,
+			rev: this.state.rev,
+			rat: this.state.rat
+		}
+		console.log(node);
+		axios.post('http://localhost:4000/product/updaterr/',node)
+			.then(res => {
+				console.log(res.data);
+				this.setState({
+					display1: false
+				})
+			})
+	}
+	render(){
+		return(
+			<div style={{float:"right",width:"30%"}}>
+			<div style={{display:this.state.display,float:"right",fontSize:"20px",fontFamily:"Courier New",color:"orange"}}>
+					Rate the Product :
+						<BeautyStars
+							value={this.state.rat}
+							onChange={this.giverating}
+						/>
+						<br />
+			</div>
+			<div style={{display:this.state.display}} className="input-field col s12">
+					<form style={{float:"right"}}>
+						<label style={{fontSize:"20px",fontFamily:"Courier New",color:"blue"}}>
+							<b>Review the Product: </b>
+							<input type="text" value={this.state.rev}
+								onChange={this.handleChange} />
+						</label>
+							<input type="submit" value="Submit" className="btn btn-primary" onClick={this.productRr} />
+					</form>
+				</div>			
+			</div>
+		)
+	}
+
 }
 
 
