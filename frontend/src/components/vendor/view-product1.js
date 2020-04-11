@@ -12,7 +12,7 @@ const Products = props => (
     <td>{props.product.order}</td>
     <td>{props.product.status}</td>
     <td>
-      <button class="btn btn-danger" onClick={() => { props.deleteProduct(props.product._id)}}>delete</button>
+      <button className="btn btn-danger" onClick={() => { props.deleteProduct(props.product._id)}}>delete</button>
     </td>
   </tr>
 )

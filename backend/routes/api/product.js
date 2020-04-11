@@ -41,7 +41,8 @@ router.route('/add').post((req,res) =>{
 		vendorname: req.body.vendorname,
 		vrating: req.body.vrating,
 		rating: 0,
-		review: ''
+		customers: 0,
+		review: []
 	})
 
 	console.log(product);
@@ -113,5 +114,23 @@ router.route('/delete').post((req,res) =>{
 		.then(() =>res.json('Product deleted.'))
 		.catch(err =>res.status(400).json('Error: '+ err));
 });
+
+router.route('/updaterr').post((req,res) =>{
+
+	console.log(req.body);
+	Product.findById(req.body.value)
+		.then(product => {
+			product.review.push(req.body.rev);
+			product.rating+=(req.body.rat);
+			x=Number(product.customers);
+			x+=1;
+			product.customers=x;
+
+			product.save()
+				.then(() => res.json('Product rated and reviewed'))
+				.catch(err => res.status(400).json('Error: '+err));
+		})
+		.catch(err => res.status(400).json('Error: '+err));
+})
 
 module.exports = router;
