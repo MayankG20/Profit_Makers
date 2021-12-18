@@ -1,3 +1,12 @@
+##Running the Application:
+1) First start the mongodb server
+2) cd backend(Switch to backend directory)
+3) node server.js
+4) cd ..
+5) cd frontend
+6) npm start
+It's Running!!!
+
 ## Installing Mongodb:
 1) sudo apt-get install gnupg
 2) wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
