@@ -1,4 +1,4 @@
-##Running the Application:
+## Running the Application:
 1) First start the mongodb server
 2) cd backend(Switch to backend directory)
 3) node server.js
